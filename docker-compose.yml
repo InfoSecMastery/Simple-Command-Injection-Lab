@@ -1,0 +1,13 @@
+# InfoSec Mastery - Command Injection lab
+# Vulnerable by default. Set MODE=secure to see the fix (execFile-style + allow-list).
+services:
+  web:
+    build: .
+    image: infosec-mastery/command-injection-lab
+    container_name: command-injection-lab
+    ports:
+      - "8081:8081"
+    environment:
+      MODE: "${MODE:-vuln}"     # vuln | secure
+    cap_add:
+      - NET_RAW                 # let `ping` send ICMP from inside the container
